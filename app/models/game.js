@@ -48,17 +48,39 @@ function addPieces(){
         }
         var column = (index % 4) * 2 + (1 - row % 2);
 
-        var rowOffset = row * board.config.width;
-        var columnOffset = column * board.config.height;
-
-        move($(element),rowOffset, columnOffset);
+        move($(element),row, column);
     });
 
 }
 
-
-
 function move($piece, x, y){
-    $piece.css('top', x + "px");
-    $piece.css('left', y + "px");
+    $piece.css('top', x * board.config.width + "px");
+    $piece.css('left', y * board.config.width + "px");
+}
+
+function gamePlay(){
+    $('.piece').on("click",function(){
+
+        var $this = $(this);
+        $(".piece").not($this).removeClass("selected");
+        $this.toggleClass("selected");
+    });
+
+    $('.square').on("click", function(){
+        var $this = $(this);
+        //if($this.hasClass('available')){
+        var $currentPiece = $('.selected');
+        if($currentPiece.length == 1){
+            //move the currentPiece to self
+            var index = $('.square').index($this);
+
+            var row = Math.floor(index / 8);
+            var column = index % 8;
+
+            move($currentPiece, row, column);
+
+            $currentPiece.removeClass('selected');
+        }
+        //}
+    });
 }
