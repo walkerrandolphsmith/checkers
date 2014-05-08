@@ -5,6 +5,11 @@ var board = {
     }
 }
 
+function move($piece, x, y){
+    $piece.css('top', x * board.config.width + "px");
+    $piece.css('left', y * board.config.width + "px");
+}
+
 function setup() {
     var numberOfPositions = 8 * 8;
 
@@ -50,15 +55,10 @@ function addPieces(){
 
         move($(element),row, column);
     });
-
-}
-
-function move($piece, x, y){
-    $piece.css('top', x * board.config.width + "px");
-    $piece.css('left', y * board.config.width + "px");
 }
 
 function gamePlay(){
+    getAvailableSquares();
     $('.piece').on("click",function(){
 
         var $this = $(this);
@@ -68,19 +68,33 @@ function gamePlay(){
 
     $('.square').on("click", function(){
         var $this = $(this);
-        //if($this.hasClass('available')){
-        var $currentPiece = $('.selected');
-        if($currentPiece.length == 1){
-            //move the currentPiece to self
-            var index = $('.square').index($this);
+        if($this.hasClass('available')){
+            var $currentPiece = $('.selected');
+            getAvailableSquares();
+            if($currentPiece.length == 1){
+                //move the currentPiece to self
+                var index = $('.square').index($this);
 
-            var row = Math.floor(index / 8);
-            var column = index % 8;
+                var row = Math.floor(index / 8);
+                var column = index % 8;
 
-            move($currentPiece, row, column);
+                move($currentPiece, row, column);
 
-            $currentPiece.removeClass('selected');
+                $currentPiece.removeClass('selected');
+                $('.square').removeClass('available');
+                getAvailableSquares();
+            }
         }
-        //}
     });
+}
+
+function getAvailableSquares(){
+    var $squares = $('.square');
+
+    var $occupied = $('.piece').map(function(index, piece){
+        var position = $(piece).position();
+        var indexInSquares = position.top/board.config.width * 8 + position.left/board.config.width;
+        return $squares[indexInSquares];
+    });
+    $('.square.dark').not($occupied).addClass('available');
 }
