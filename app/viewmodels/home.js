@@ -25,7 +25,21 @@
 
     function compositionComplete(child, parent, settings){
         setup();
+        addPieces();
+
+        $('.piece').on("click",function(){
+
+            var self = $(this);
+            $(".piece").not(self).removeClass("selected");
+            self.toggleClass("selected");
+        });
+
+        $('.square').on("click", function(){
+
+        });
     }
+
+
 
 
     return obj;
