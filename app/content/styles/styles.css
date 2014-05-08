@@ -1,0 +1,107 @@
+@import "bootstrap.css";
+@import "bootstrap-theme.css";
+@import "durandal.css";
+@import "font-awesome.css";
+@import "font-awesome-ie7.css";
+@import "ie10mobile.css";
+@import "starterkit.css";
+#board {
+  display: flex;
+  flex-flow: row wrap;
+  width: 336;
+  height: 336;
+}
+.square {
+  width: 42;
+  height: 42;
+}
+.dark {
+  background: #000000;
+}
+.light {
+  background: #ff0000;
+}
+.black {
+  background-image: url(../images/home.png);
+}
+.white {
+  background-image: url(../images/file.png);
+}
+.black-king {
+  background-image: url(../images/source.png);
+}
+/*
+    grayscale, invert, sepia, contrast, saturate (%)
+    brightness(real)
+    blur(px)
+    hue-rotate(deg)
+*/
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+h1,
+h2 {
+  color: #cccccc;
+  text-transform: uppercase;
+  font-size: 5em;
+  -webkit-text-shadow: -1px -1px;
+  -moz-text-shadow: -1px -1px;
+  -o-text-shadow: -1px -1px;
+  -ms-text-shadow: -1px -1px;
+  text-shadow: -1px -1px;
+}
+h2 {
+  font-size: 3em;
+}
+/*
+ *
+ * iPad 3+
+ *
+ */
+/*
+ *
+ * iPad Retina
+ *
+ */
+/*
+ *
+ * iPad 1 & 2 & Mini
+ *
+ */
+/*
+ *
+ * iPhone 5
+ *
+ */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  div[class*="social"] {
+    list-style: none;
+    text-decoration: none;
+    display: inline-block;
+    height: 135px;
+    width: 135px;
+    cursor: pointer;
+  }
+  .social-fb {
+    background-image: url(../images/social-sm-fb.png);
+  }
+  .social-in {
+    background-image: url(../images/social-sm-in.png);
+  }
+  .social-tw {
+    background-image: url(../images/social-sm-tw.png);
+  }
+  .social-g-plus {
+    background-image: url(../images/social-sm-g-plus.png);
+  }
+}
+/*
+ *
+ * iPhone <5
+ *
+ */

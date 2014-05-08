@@ -1,0 +1,58 @@
+@gameBoard-no-sides: 8;
+@gameBoard-sides-width: 42;
+@gameBoard-width: @gameBoard-no-sides * @gameBoard-sides-width;
+
+#board
+{
+  display: flex;
+  flex-flow: row wrap;
+  width: @gameBoard-width;
+  height: @gameBoard-width;
+}
+
+.square:nth-child(even){
+
+}
+
+.square:nth-child(odd){
+
+}
+
+.square:nth-child(8n){
+
+}
+
+.square
+{
+  width: @gameBoard-sides-width;
+  height: @gameBoard-sides-width;
+}
+
+.dark{
+  background: #000000;
+}
+
+.light {
+  background: #ff0000;
+}
+
+
+.black
+{
+  background-image:url(../images/home.png);
+}
+
+.white
+{
+  background-image:url(../images/file.png);
+}
+
+.black-king
+{
+  background-image:url(../images/source.png);
+}
+
+.white-king
+{
+
+}
