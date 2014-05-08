@@ -1,4 +1,5 @@
-Hire
+Checkers
 
-Automate the decision process of hiring manager using a rule based expert system.
+Classic game of checkers.
+
 
