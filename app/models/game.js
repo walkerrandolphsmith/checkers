@@ -5,11 +5,6 @@ var board = {
     }
 }
 
-function move($piece, x, y){
-    $piece.css('top', x * board.config.width + "px");
-    $piece.css('left', y * board.config.width + "px");
-}
-
 function setup() {
     var numberOfPositions = 8 * 8;
 
@@ -36,65 +31,91 @@ function isDark(index){
 }
 
 function addPieces(){
+
+     $('.square.dark').each(function(index, element){
+     var $square = $(element);
+     var pieceDiv = document.createElement('div');
+     pieceDiv.classList.add('piece');
+     $square.append(pieceDiv);
+     });
+
+
     var numberOfPieces = 24;
     for(var i = 0; i < numberOfPieces; i++){
-        var element = document.createElement('div');
-        element.classList.add('piece');
-        $('#pieces').append(element);
-    }
-    $('.piece').each(function(index, element){
-        if(index > 11){
-          var row = Math.floor(index/4) + 2;
-            element.classList.add('light');
+        var newPiece = document.createElement('div');
+        newPiece.classList.add('piece');
+        if(i > 11){
+            var row = Math.floor(i/4) + 2;
+            newPiece.classList.add('light');
         }else{
-            var row = Math.floor(index/4);
-            element.classList.add('dark');
-            element.classList.add('king');
+            var row = Math.floor(i/4);
+            newPiece.classList.add('dark');
         }
-        var column = (index % 4) * 2 + (1 - row % 2);
+        var column = (i % 4) * 2 + (1 - row % 2);
 
-        move($(element),row, column);
-    });
+        var $containerSquare = getSquareGivenCoordinates(row, column);
+        $containerSquare.html(newPiece);
+    }
 }
 
 function gamePlay(){
-    getAvailableSquares();
-    $('.piece').on("click",function(){
-
-        var $this = $(this);
-        $(".piece").not($this).removeClass("selected");
-        $this.toggleClass("selected");
-    });
-
+    var isLightTurn = true;
+    setAvailableSquares();
     $('.square').on("click", function(){
         var $this = $(this);
-        if($this.hasClass('available')){
-            var $currentPiece = $('.selected');
-            getAvailableSquares();
-            if($currentPiece.length == 1){
-                //move the currentPiece to self
-                var index = $('.square').index($this);
+        var index = getIndexOfSquare($this);
+        var $children = $this.children();
+        //Light's Turn
+        if($children.hasClass('light')&&isLightTurn){
+            $(".piece").not($children).removeClass("selected");
+            $children.addClass("selected");
+        //Dark's Turn
+        }else if($children.hasClass('dark')&&!isLightTurn){
+            $(".piece").not($children).removeClass("selected");
+            $children.addClass("selected");
+        //Player Move
+        }else if($this.hasClass('available')&& $('.selected').length === 1){
+            var $selectedPiece = $('.selected');
 
-                var row = Math.floor(index / 8);
-                var column = index % 8;
-
-                move($currentPiece, row, column);
-
-                $currentPiece.removeClass('selected');
-                $('.square').removeClass('available');
-                getAvailableSquares();
-            }
+            //Clean up for next player
+            $('.piece').removeClass('selected');
+            isLightTurn = !isLightTurn;
+            setAvailableSquares();
         }
     });
 }
 
-function getAvailableSquares(){
-    var $squares = $('.square');
+function getIndexOfSquare($square)
+{
+    return $('.square').index($square);
+}
 
-    var $occupied = $('.piece').map(function(index, piece){
-        var position = $(piece).position();
-        var indexInSquares = position.top/board.config.width * 8 + position.left/board.config.width;
-        return $squares[indexInSquares];
+function getSquareGivenCoordinates(row, column){
+    var $square = null;
+    $('.square').each(function(index, element){
+        var currentRow = Math.floor(index / 8);
+        var currentColumn = index % 8;
+        if(row === currentRow && column === currentColumn){
+            $square = $(element);
+        }
     });
-    $('.square.dark').not($occupied).addClass('available');
+    return $square;
+}
+
+function getSquareGivenIndex(index)
+{
+
+}
+
+
+
+function setAvailableSquares(){
+   $('.piece').each(function(index, element){
+       var $piece = $(element);
+       if($piece.hasClass('light')||$piece.hasClass('dark')){
+
+       }else{
+           $piece.parent().addClass('available');
+       }
+   });
 }
