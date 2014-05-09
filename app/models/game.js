@@ -21,11 +21,10 @@ function setup() {
 }
 
 function isDark(index){
-    var row = Math.floor(index / 8);
-    var column = index % 8;
+    var pos = getCoordinatesGiven(index);
 
-    var isRowEven = row % 2;
-    var isColumnEven = column % 2;
+    var isRowEven = pos.row % 2;
+    var isColumnEven = pos.column % 2;
 
     return (isRowEven != isColumnEven) ? true: false;
 }
@@ -38,7 +37,6 @@ function addPieces(){
      pieceDiv.classList.add('piece');
      $square.append(pieceDiv);
      });
-
 
     var numberOfPieces = 24;
     for(var i = 0; i < numberOfPieces; i++){
@@ -60,35 +58,38 @@ function addPieces(){
 
 function gamePlay(){
     var isLightTurn = true;
-    setAvailableSquares();
+
     $('.square').on("click", function(){
         var $this = $(this);
-        var index = getIndexOfSquare($this);
+        var index = getIndexGiven($this);
+        console.log(index);
         var $children = $this.children();
-        //Light's Turn
+
         if($children.hasClass('light')&&isLightTurn){
-            $(".piece").not($children).removeClass("selected");
-            $children.addClass("selected");
-        //Dark's Turn
+            select($this, $children);
+
         }else if($children.hasClass('dark')&&!isLightTurn){
-            $(".piece").not($children).removeClass("selected");
-            $children.addClass("selected");
-        //Player Move
+            select($this, $children);
+
         }else if($this.hasClass('available')&& $('.selected').length === 1){
             var $selectedPiece = $('.selected');
 
             //Clean up for next player
             $('.piece').removeClass('selected');
             isLightTurn = !isLightTurn;
-            setAvailableSquares();
+            setAvailableSquares($this, false);
         }
+
+        function select (square, children){
+            $(".piece").not(children).removeClass("selected");
+            children.addClass("selected");
+            setAvailableSquares(square, true);
+        }
+
     });
 }
 
-function getIndexOfSquare($square)
-{
-    return $('.square').index($square);
-}
+
 
 function getSquareGivenCoordinates(row, column){
     var $square = null;
@@ -102,20 +103,39 @@ function getSquareGivenCoordinates(row, column){
     return $square;
 }
 
-function getSquareGivenIndex(index)
+function getSquareGiven(index)
 {
 
 }
 
+function getIndexGiven($square)
+{
+    return $('.square').index($square);
+}
+
+function getCoordinatesGiven(index)
+{
+    var row = Math.floor(index / 8);
+    var column = index % 8;
+
+    return pos = {column:column, row:row};
+}
+
+function setAvailableSquares($square, isEnd){
+    if(!isEnd)
+        $('.square').removeClass('available');
+    else{
+        var index = getIndexGiven($square);
 
 
-function setAvailableSquares(){
-   $('.piece').each(function(index, element){
-       var $piece = $(element);
-       if($piece.hasClass('light')||$piece.hasClass('dark')){
 
-       }else{
-           $piece.parent().addClass('available');
-       }
-   });
+        $('.piece').each(function(index, element){
+           var $piece = $(element);
+           if($piece.hasClass('light')||$piece.hasClass('dark')){
+
+           }else{
+               $piece.parent().addClass('available');
+           }
+       });
+    }
 }
