@@ -21,7 +21,7 @@ function setup() {
 }
 
 function isDark(index){
-    var pos = getCoordinatesGiven(index);
+    var pos = getCoordinatesGivenIndex(index);
 
     var isRowEven = pos.row % 2;
     var isColumnEven = pos.column % 2;
@@ -45,7 +45,6 @@ function addPieces(){
         if(i > 11){
             var row = Math.floor(i/4) + 2;
             newPiece.classList.add('light');
-            newPiece.classList.add('king');
         }else{
             var row = Math.floor(i/4);
             newPiece.classList.add('dark');
@@ -62,7 +61,7 @@ function gamePlay(){
 
     $('.square').on("click", function(){
         var $this = $(this);
-        var index = getIndexGiven($this);
+        var index = getIndexGivenSquare($this);
         console.log(index);
         var $children = $this.children();
 
@@ -94,9 +93,9 @@ function setAvailableSquares($square, isEnd){
     if(!isEnd)
         $('.square').removeClass('available');
     else{
-        var index = getIndexGiven($square);
+        var index = getIndexGivenSquare($square);
 
-        var pos = getCoordinatesGiven(index);
+        var pos = getCoordinatesGivenIndex(index);
 
         var row = pos.row;
         var column = pos.column;
@@ -111,45 +110,30 @@ function setAvailableSquares($square, isEnd){
              alert("they dont");
          $children().parent().addClass('available');
          }
-
-         /*
-        $('.piece').each(function(index, element){
-            var $piece = $(element);
-            if($piece.hasClass('light')||$piece.hasClass('dark')){
-
-            }else{
-                $piece.parent().addClass('available');
-            }
-        });
-        */
     }
 }
 
 
+ function getSquareGivenCoordinates(row, column){
+    var index = getIndexGivenCoordinates(row, column);
+    return getSquareGivenIndex(index);
+ }
 
-function getSquareGivenCoordinates(row, column){
-    var $square = null;
-    $('.square').each(function(index, element){
-        var currentRow = Math.floor(index / 8);
-        var currentColumn = index % 8;
-        if(row === currentRow && column === currentColumn){
-            $square = $(element);
-        }
-    });
-    return $square;
+function getIndexGivenCoordinates(row, column){
+    return (8 * row) + column;
 }
 
-function getSquareGiven(index)
-{
-
-}
-
-function getIndexGiven($square)
+function getIndexGivenSquare($square)
 {
     return $('.square').index($square);
 }
 
-function getCoordinatesGiven(index)
+function getSquareGivenIndex(index)
+{
+    return $('.square:nth-child('+(index+1)+')');
+}
+
+function getCoordinatesGivenIndex(index)
 {
     var row = Math.floor(index / 8);
     var column = index % 8;
