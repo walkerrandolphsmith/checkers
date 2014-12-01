@@ -1,15 +1,13 @@
-# Micromeritics
+# Checkers
 
 ## Setup
-> npm install
-
+npm install
 
 ## Build
-> gulp build
+gulp build
 
 ## Test
-> gulp test
+gulp test
 
-## Build and Run in browser
-> gulp
-
+## Build and Run in Browser
+gulp
