@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Checkers</title>
+    <meta name="viewport" content="width=device-width"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="styles/checkers.css" rel="stylesheet"/>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <base href="/">
+</head>
+<body ng-app="CHECKERS" class="no-js">
+
+<div class="container">
+    <div class="row">
+
+        <main class="clearfix">
+
+            <aside id="sidebar" sticky-aside>
+
+                <div class="instructions-headers">
+                    <nav>
+                        <a href="/">
+                            <i class="fa fa-play"></i>
+                            Game
+                        </a>
+                        <a href="/rules">
+                            <i class="fa fa-book"></i>
+                            Rules
+                        </a>
+                        <a ng-if="!sessionUser" href="/login">
+                            <i class="fa fa-chevron-right"></i>
+                            Login
+                        </a>
+                        <a ng-if="sessionUser" ng-click="logOut()">
+                            <i class="fa fa-chevron-left"></i>
+                            Logout
+                        </a>
+                    </nav>
+                </div>
+
+            </aside>
+
+            <div id="content">
+
+                <article id="game">
+                    <div ui-view></div>
+                </article>
+            </div>
+        </main>
+
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.11/angular-ui-router.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+<script src="https://cdn.jsdelivr.net/parse/1.2.9/parse.min.js"></script>
+
+<script src="scripts/checkers.js"></script>
+</body>
+</html>

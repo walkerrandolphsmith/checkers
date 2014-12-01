@@ -1,5 +1,15 @@
-Checkers
+# Micromeritics
 
-Classic game of checkers.
+## Setup
+> npm install
 
+
+## Build
+> gulp build
+
+## Test
+> gulp test
+
+## Build and Run in browser
+> gulp
 

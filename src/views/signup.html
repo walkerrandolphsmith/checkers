@@ -1,0 +1,15 @@
+<div class="signup" ng-controller="SignUpController" ng-hide="isNewMember">
+    <form class="form-user form-signup clearfix">
+        <p>
+            <input type="email" id="email" name="email" placeholder="Email" ng-model="user.email">
+            <input type="text" name="username" id="username" placeholder="Username" ng-model="user.username">
+            <input type="password" name="password" id="psswrd" placeholder="Password" ng-model="user.password">
+            <input type="phone" name="phone" id="phone" placeholder="Phone" ng-model="user.phone">
+        </p>
+        <button type="submit" name="submit" ng-click="signUp(user)">
+            <i class="fa fa-arrow-right"></i>
+            <span>Register</span>
+        </button>
+    </form>
+    <a href="/login">Already a User</a>
+</div>
