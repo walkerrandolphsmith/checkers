@@ -31,8 +31,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 })
     .run(function ($rootScope, $state, $window, $location, User) {
         Parse.initialize(
-            "gjkjgsFX68XkRYaN0WhdHY733oSrXWPaYeWZ7Cp9",
-            "mLf8e3p4QyhKyyTgr8sUVDVReU5S36MzThS1vCzc"
+            "****************************************",
+            "****************************************"
         );
         $rootScope.sessionUser = Parse.User.current();
 
