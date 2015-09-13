@@ -1,0 +1,14 @@
+<div class="signin" ng-controller="LoginController">
+    <form class="form-user form-signin clearfix">
+        <p>
+            <input type="text" id="login" name="login" placeholder="Username" ng-model="user.username">
+            <input type="password" name="password" id="password" placeholder="Password"
+                   ng-model="user.password">
+        </p>
+        <button type="submit" name="submit" ng-click="logIn(user)">
+            <i class="fa fa-arrow-right"></i>
+            <span>Sign in</span>
+        </button>
+    </form>
+    <a href="/signup">Sign Up</a>
+</div>
